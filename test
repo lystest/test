@@ -1,0 +1,13 @@
+#!/usr/bin/perl -w
+#
+$line = 0;
+
+open($files, 'find . -name "*.[hc]" |');
+while (<$files>) {
+        open($fp, $_);
+        while (<$fp>) {
+                $line++;
+        }
+}
+
+print $line . "\n";
