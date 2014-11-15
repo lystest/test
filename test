@@ -2,7 +2,7 @@
 #
 $line = 0;
 
-open($files, 'find . -name "*.[hc]" |');
+open($files, 'find . -name "*.[hc|java]" |');
 while (<$files>) {
         open($fp, $_);
         while (<$fp>) {
