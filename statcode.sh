@@ -1,4 +1,9 @@
 #!/bin/bash
+
+    beginday=$2
+    endday=$3
+   
+
 function count() {
     local insert=0
     local delete=0
@@ -39,13 +44,23 @@ function countOneDay() {
 
 }
 
+function countDayToDay() {
+    git log --author=liuyanshan --since="$beginday days ago" --before="$endday days ago" --shortstat --pretty=format:"" | sed /^$/d >.tmp.count
+    count;
+    rm .tmp.count
+
+}
+
+
 if [[ ! -n $1 ]] || [[ $1 = "all" ]] ; then 
     countAll;
 elif [[ $1 = "oneday" ]]; then
     countOneDay;
 elif [[ $1 = "today" ]]; then
     countToday;
+elif [[ $1 = "daytoday" ]]; then
+    countDayToDay;
 else
-    echo "args: all | oneday | today";
+    echo "args: all | oneday | today | daytoday";
 fi
 
