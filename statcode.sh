@@ -26,7 +26,6 @@ begin=`date +%Y-%m-%d |xargs date +%s -d`;
 minutes=$(($current - $begin));
 cmd='';
 
-
 for user  in ${users[@]};do
 
 	if [[ ! -n $action ]] || [[ $action = "all" ]] ; then 
