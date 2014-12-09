@@ -21,9 +21,11 @@ function count() {
 }
 
 function countAll() {
-    git log --author=liuyanshan --shortstat --pretty=format:"" | sed /^$/d >.tmp.count
-    count;
-    rm .tmp.count
+    for user  in `git log --pretty='%aN' | sort -u`;do
+         git log --author=$user --shortstat --pretty=format:"" | sed /^$/d >.tmp.count
+         count;
+         rm .tmp.count
+   done
 }
 
 function countToday() {
@@ -31,23 +33,29 @@ function countToday() {
     local begin=`date +%Y-%m-%d |xargs date +%s -d`;
     local minutes=$(($current - $begin));
 
-    git log --author=liuyanshan --since="$minutes seconds ago" --shortstat --pretty=format:"" | sed /^$/d >.tmp.count
-    count;
-    rm .tmp.count
+    for user  in `git log --pretty='%aN' | sort -u`;do
+	    git log --author=$user --since="$minutes seconds ago" --shortstat --pretty=format:"" | sed /^$/d >.tmp.count
+	    count;
+	    rm .tmp.count
+	    done
 
 }
 
 function countOneDay() {
-    git log --author=liuyanshan --since="1 days ago" --shortstat --pretty=format:"" | sed /^$/d >.tmp.count
-    count;
-    rm .tmp.count
+    for user  in `git log --pretty='%aN' | sort -u`;do
+	    git log --author=liuyanshan --since="1 days ago" --shortstat --pretty=format:"" | sed /^$/d >.tmp.count
+	    count;
+	    rm .tmp.count
+	done
 
 }
 
 function countDayToDay() {
-    git log --author=liuyanshan --since="$beginday days ago" --before="$endday days ago" --shortstat --pretty=format:"" | sed /^$/d >.tmp.count
-    count;
-    rm .tmp.count
+    for user  in `git log --pretty='%aN' | sort -u`;do
+	    git log --author=$user --since="$beginday days ago" --before="$endday days ago" --shortstat --pretty=format:"" | sed /^$/d >.tmp.count
+	    count;
+	    rm .tmp.count
+	done
 
 }
 
